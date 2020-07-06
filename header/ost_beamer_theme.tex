@@ -1,0 +1,185 @@
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%
+% LaTeX Presentation Template - Header File
+%
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% "THE BEER-WARE LICENSE" (Revision 42):
+% Patrik Müller (p1muelle@hsr.ch) wrote this LaTeX template. As long as you retain 
+% this notice you can do whatever you want with this stuff. If we meet some day, 
+% and you think this stuff is worth it, you can buy me a beer in return. 
+% - Patrik Müller
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+% Packages
+\usetheme{default}
+
+% Fonts
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}               % use palatino font!
+\linespread{1.05}                       % palatino needs a bit more space!
+\usepackage[T1,small,euler-digits]{eulervm}
+\usepackage[scaled=0.8]{beramono}       % Use bera for mono fonts
+\usefonttheme{professionalfonts}        % Setup beamer to use these fonts
+
+% Math
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Babel
+\newcommand*{\LangDE}{de}
+\ifx \Lang \LangDE
+    \usepackage[english,ngerman]{babel}
+\else
+    \usepackage[ngerman,english]{babel}
+\fi
+
+% Tables
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multicol}
+
+% Colors
+\usepackage{xcolor}
+\usepackage{header/ost_colors}
+
+% Graphics
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{epstopdf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,backgrounds,fit,positioning,calc,shapes}
+\usepackage[american currents]{circuitikz}
+\usepackage{tikz-timing}[2009/12/09]
+\usepackage{pgfplots}
+\pgfplotsset{compat = 1.3}
+
+% Listings
+\usepackage{listings}
+
+% SI Units
+\usepackage{siunitx}
+\sisetup{detect-all,sticky-per,per-mode=symbol}
+
+% Chemical formulae
+\usepackage[version=3]{mhchem}
+
+% EToolbox for e-TeX (programming)
+\usepackage{etoolbox}
+
+% HSR Colorbox
+\usepackage{tcolorbox}
+\newtcolorbox{ostbox}[1]{colback=OSTwhite,colframe=OSTblackberry,title=#1}
+
+% Setup date-time format
+\usepackage{datetime}
+\newdateformat{titledate}{\THEDAY.~\monthname\space\THEYEAR}
+
+\newcommand*{\TypeBubble}{bubble}
+\newcommand*{\Background}{backgrounds/title_\Location_\TitlepageType}
+\setbeamertemplate{navigation symbols}{}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Setup Document
+\title[\TitleShort]{\Title}
+\subtitle{\Subtitle}
+\author[\AuthorShort]{\Author}
+
+\hypersetup{
+    pdftitle={\Title},
+    pdfauthor={\Author},
+    pdfsubject={\Subtitle},
+    pdfcreator={LaTeX with hyperref and Beamer}
+}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Color scheme
+\setbeamercolor*{frametitle}{fg=white,bg=OSTblackberry}
+\setbeamertemplate{section in toc}{\hspace{1em}{\scriptsize\color{OSTblackberry}$\blacksquare$}~\inserttocsection}
+\setbeamercolor*{section in toc}{fg=OSTblack}
+\setbeamercolor*{section in toc shaded}{fg=OSTblack}
+
+\setbeamertemplate{itemize item}[circle]
+\setbeamercolor*{itemize item}{fg=OSTblackberry}
+\setbeamertemplate{itemize subitem}[circle]
+\setbeamercolor*{itemize subitem}{fg=OSTlightgray}
+\setbeamertemplate{itemize subsubitem}[triangle]
+\setbeamercolor*{itemize subsubitem}{fg=OSTlightgray}
+
+\setbeamertemplate{enumerate item}{\arabic{enumi})}
+\setbeamercolor{enumerate item}{fg=OSTblackberry}
+\setbeamertemplate{enumerate subitem}{\roman{enumii})}
+\setbeamercolor{enumerate subitem}{fg=black}
+\setbeamertemplate{enumerate subsubitem}{\alph{enumiii})}
+\setbeamercolor{enumerate subsubitem}{fg=black}
+
+\setbeamertemplate{caption}{\scshape\scriptsize\textcolor{OSTblackberry}{\insertcaptionname:}~\insertcaption}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Title page
+\defbeamertemplate*{title page}{customized}[1][]{
+    \begin{tikzpicture}[remember picture,overlay,shift=(current page.south west)]
+
+        \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);
+
+        % Background image
+%        \node at (current page.center) {\includegraphics[width=\the\paperwidth]{\Background}};
+
+		\ifx \TitlepageType \TypeBubble
+			 % Text
+			\node[anchor=north west] at (63.4mm, 10.1mm) (institute){\parbox{80mm}{\scriptsize\Institute}};
+			\node[anchor=south west, above=1.5mm of institute] (date) {\parbox{80mm}{\scriptsize\titledate\today}};
+			\node[anchor=south west, above=0mm of date] (author) {\parbox{80mm}{\scriptsize\Author}};
+			\node[inner ysep=0, outer sep=0, above=1.2cm of author.north west, anchor=north west] (subtitle) {\parbox{80mm}{\textbf{\color{OSTblack}\large\Subtitle}}};
+			\node[anchor=south west, inner ysep=0, outer sep=0, text height=1cm, above=2mm of subtitle] (title) {\parbox{80mm}{\textbf{\color{OSTblackberry}\LARGE\Title}}};
+		\else
+			% OST bars
+			\draw[draw=none,fill=OSTblackberry,opacity=0.85] (6.8mm,9.1mm) rectangle (86.8mm,89.1mm);
+			
+			% OST logo
+%			\draw[draw=none,fill=white] (0mm,4.5mm) rectangle (34.5mm,16.4mm);
+%			\node[anchor=south west,inner sep=0] at (4.5mm,4.5mm) {\includegraphics[width=30mm]{header/ost_logo}};
+		\fi
+    \end{tikzpicture}
+}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Footer
+\newcommand*{\True}{true}
+\setbeamertemplate{footline}
+{
+    \begin{tikzpicture}
+        \pgfmathparse{\paperwidth/\inserttotalframenumber*\insertframenumber}
+        \pgfmathresult \let\hsrBeamerProgressWidth\pgfmathresult
+
+        \useasboundingbox (0,0) rectangle (\the\paperwidth,1.2cm);
+        \draw[color=OSTblack] (0,1.2cm) -- (\the\paperwidth,1.2cm);
+
+        \ifx \ProgressBar \True
+            \draw[draw,fill] (0,1.2cm) rectangle (\hsrBeamerProgressWidth pt,1.15cm);
+        \fi
+
+        \node[inner sep=0pt,anchor=west] at (1em,0.6cm)  {\includegraphics[width=2.5cm]{header/ost_logo}};
+
+        \node[inner sep=0pt,anchor=center] at (0.5*\the\paperwidth,0.8cm){\scriptsize{\insertframenumber}};
+        \node[inner sep=0pt,anchor=center] at (0.5*\the\paperwidth,0.4cm){\scriptsize{\AuthorShort}};
+
+        \ifdefempty{\Institute}{}{
+            \node[inner sep=0pt,anchor=east] at (\the\paperwidth-1em,0.6cm) {\InstituteShort};
+        }
+
+    \end{tikzpicture}
+}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% TOC at beginning of every section
+
+\ifx \TocAtSection \True
+    \AtBeginSection[]
+    {
+        \begin{frame}<beamer>
+            \frametitle{\contentsname}
+            \tableofcontents[currentsection]
+        \end{frame}
+    }
+\fi
