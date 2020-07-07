@@ -14,7 +14,7 @@
 
 \RequirePackage[l2tabu, orthodox]{nag}    % Warnings for obsolete packages
 \RequirePackage{etex}                     % Load e-TeX engine
-\documentclass[aspectratio=169]{beamer}    % 169 (16:9) or 43 (4:3)
+\documentclass[aspectratio=169, arial]{beamer}    % 169 (16:9) or 43 (4:3)
 \usepackage[utf8]{inputenc}               % Always use UTF-8!
 
 \newcommand*{\Title}{Your Presentation Title}
@@ -25,22 +25,44 @@
 \newcommand*{\Topic}{Topic}
 \newcommand*{\Lang}{en}
 %\newcommand*{\Institute}{institutes/ICOM-Institute_for_Communication_System_CMYK.eps}
-\newcommand*{\Institute}{Institute for Communication Systems}
-\newcommand*{\InstituteShort}{ICOM}
+\newcommand*{\Institute}{Institute / Department}
+\newcommand*{\InstituteShort}{Inst}
 %\newcommand*{\Background}{backgrounds/title_rapperswil}
-\newcommand*{\TitlepageType}{bar}
+\newcommand*{\TitlepageType}{0}
 \newcommand*{\Location}{rapperswil}
 \newcommand*{\TocAtSection}{true}
+\newcommand*{\TocSplit}{9}
 \newcommand*{\ProgressBar}{false}
 
+\usepackage{xstring}
+\usepackage{setspace}
+\newcommand{\OstToc}[1][]{
+	\IfInteger{\TocSplit}
+	{
+		\tikzmath{integer \nextsection; \nextsection = \TocSplit + 1;}
+		\begin{columns}[t]
+			\begin{column}{0.5\textwidth}
+				\tableofcontents[sections=1-\TocSplit, #1]
+			\end{column}
+			\begin{column}{0.49\textwidth}
+				\tableofcontents[sections=\nextsection-, #1]
+			\end{column}
+		\end{columns}
+	}
+	{\tableofcontents}
+}
+
 \include{header/ost_beamer_theme}
+\makeatletter
+\patchcmd{\beamer@sectionintoc}{\vfill}{\vskip 8pt}{}{}
+\makeatother
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \begin{document}
 
 \frame[plain]{\titlepage}
 
 \begin{frame}{\contentsname}
-    \tableofcontents
+	\OstToc
 \end{frame}
 
 \section{First section}
@@ -115,11 +137,26 @@
         \end{column}
         \begin{column}{0.5\textwidth}
             \centering
-            \includegraphics[width=0.8\linewidth]{backgrounds/title_rapperswil_bar}
+            \includegraphics[width=0.8\linewidth]{header/ost_logo}
             \captionof{figure}{A sample image. You don't need any floats here, just
             use \texttt{captionof}.}
         \end{column}
     \end{columns}
+\end{frame}
+
+\section{Third Section}
+\begin{frame}
+	Emtpy frame
+\end{frame}
+
+\section{Forth Section}
+\subsection{Subsection One}
+\begin{frame}
+	Emtpy frame
+\end{frame}
+\subsection{Subsection Two}
+\begin{frame}
+	Emtpy frame
 \end{frame}
 
 \section{Last section}

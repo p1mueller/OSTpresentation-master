@@ -47,7 +47,7 @@
 \usepackage{caption}
 \usepackage{epstopdf}
 \usepackage{tikz}
-\usetikzlibrary{arrows,backgrounds,fit,positioning,calc,shapes}
+\usetikzlibrary{arrows,backgrounds,fit,positioning,calc,shapes,math}
 \usepackage[american currents]{circuitikz}
 \usepackage{tikz-timing}[2009/12/09]
 \usepackage{pgfplots}
@@ -66,7 +66,7 @@
 % EToolbox for e-TeX (programming)
 \usepackage{etoolbox}
 
-% HSR Colorbox
+% OST Colorbox
 \usepackage{tcolorbox}
 \newtcolorbox{ostbox}[1]{colback=OSTwhite,colframe=OSTblackberry,title=#1}
 
@@ -74,7 +74,6 @@
 \usepackage{datetime}
 \newdateformat{titledate}{\THEDAY.~\monthname\space\THEYEAR}
 
-\newcommand*{\TypeBubble}{bubble}
 \newcommand*{\Background}{backgrounds/title_\Location_\TitlepageType}
 \setbeamertemplate{navigation symbols}{}
 
@@ -93,10 +92,19 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Color scheme
+
 \setbeamercolor*{frametitle}{fg=white,bg=OSTblackberry}
-\setbeamertemplate{section in toc}{\hspace{1em}{\scriptsize\color{OSTblackberry}$\blacksquare$}~\inserttocsection}
-\setbeamercolor*{section in toc}{fg=OSTblack}
-\setbeamercolor*{section in toc shaded}{fg=OSTblack}
+
+\setbeamertemplate{section in toc}{%
+	\leavevmode\leftskip=5ex%
+	\llap{\raisebox{0.2ex}{\textcolor{OSTblackberry}{$\bullet$}}\kern1ex}%
+	\hspace{1.ex}\color{black}\inserttocsection\par%
+}
+\setbeamertemplate{subsection in toc}{%
+	\leavevmode\leftskip=8ex%
+	\llap{\raisebox{0.2ex}{\textcolor{OSTblack}{\small$\bullet$}}\kern1ex}%
+	\hspace{1.ex}\inserttocsubsection\par%
+}
 
 \setbeamertemplate{itemize item}[circle]
 \setbeamercolor*{itemize item}{fg=OSTblackberry}
@@ -122,10 +130,10 @@
 
         \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);
 
-        % Background image
-%        \node at (current page.center) {\includegraphics[width=\the\paperwidth]{\Background}};
-
-		\ifx \TitlepageType \TypeBubble
+		\if \TitlepageType 0
+			% Background image
+			\node at (current page.center) {\includegraphics[width=\the\paperwidth]{\Background}};
+			
 			 % Text
 			\node[anchor=north west] at (63.4mm, 10.1mm) (institute){\parbox{80mm}{\scriptsize\Institute}};
 			\node[anchor=south west, above=1.5mm of institute] (date) {\parbox{80mm}{\scriptsize\titledate\today}};
@@ -133,13 +141,20 @@
 			\node[inner ysep=0, outer sep=0, above=1.2cm of author.north west, anchor=north west] (subtitle) {\parbox{80mm}{\textbf{\color{OSTblack}\large\Subtitle}}};
 			\node[anchor=south west, inner ysep=0, outer sep=0, text height=1cm, above=2mm of subtitle] (title) {\parbox{80mm}{\textbf{\color{OSTblackberry}\LARGE\Title}}};
 		\else
+			% Background image
+			\node[yshift=7.5mm] at (current page.center) {\includegraphics[width=\the\paperwidth]{\Background}};
+		
 			% OST bars
-			\draw[draw=none,fill=OSTblackberry,opacity=0.85] (6.8mm,9.1mm) rectangle (86.8mm,89.1mm);
+			\node[anchor=south west, fill=OSTlightgray, opacity=0.8, inner ysep=2mm] at (69.9mm, 35.1mm) (title) {\parbox{75.mm}{\textbf{\color{OSTblackberry}\LARGE\Title\strut}\vspace{-0.3\baselineskip}}};
+			\node[anchor=north west, fill=OSTraspberry, opacity=0.8, inner ysep=1mm] at (55.9mm,35.25mm) (subtitle) {\parbox{52.mm}{\textbf{\color{OSTwhite}\large\Subtitle\strut}\vspace{-0.15\baselineskip}}};
 			
-			% OST logo
-%			\draw[draw=none,fill=white] (0mm,4.5mm) rectangle (34.5mm,16.4mm);
-%			\node[anchor=south west,inner sep=0] at (4.5mm,4.5mm) {\includegraphics[width=30mm]{header/ost_logo}};
-		\fi
+			% OST footbar
+			\node[anchor=south west, fill=OSTwhite, minimum height=14.5mm, minimum width=\the\paperwidth] at (0mm, 0mm) (footbar){};
+			\node[anchor=north west] at (7.7mm, 13.0mm) (institute) {\parbox{60mm}{\tiny\Institute}};
+			\node[right=125.7mm of institute.north west, anchor=north west] (logo){\includegraphics[height=9mm]{header/ost_logo.png}}; % OST logo
+			\node[right=of institute.north east, anchor=north west ] (author) {\parbox{44.5mm}{\tiny\Author}};
+			\node[below=11.5mm of author.north west, anchor=south west] (date) {\parbox{44.5mm}{\tiny\titledate\today}};
+		\fi		
     \end{tikzpicture}
 }
 
@@ -179,7 +194,7 @@
     {
         \begin{frame}<beamer>
             \frametitle{\contentsname}
-            \tableofcontents[currentsection]
+            \OstToc[currentsection]
         \end{frame}
     }
 \fi
