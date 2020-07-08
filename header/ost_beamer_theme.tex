@@ -92,10 +92,32 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Color scheme
-
+\setbeamercolor*{structure}{fg=OSTblackberry, bg=OSTblackberry}
 \setbeamercolor*{frametitle}{fg=white,bg=OSTblackberry}
 
-\setbeamertemplate{section in toc}{%
+\defbeamertemplate{section in toc}{ost arrow}{
+	\leavevmode\leftskip=5ex%
+	\llap{\scalebox{0.7}{
+		\begin{tikzpicture}[every path/.style={color=OSTblack,line width=2.3pt}]
+			\coordinate (O) at (0pt, 6pt);
+			\coordinate (T) at (12pt, 6pt);
+			\draw (T) -- ++(-4pt, 0pt);
+			\draw[color=OSTblackberry] (O) ++(4pt, 0pt) -- ++(4pt, 0pt);		
+			\draw[color=OSTraspberry] (O) -- ++(4pt, 0pt);
+			\draw (T)++(.7pt, .7pt) -- ++(-5.7pt, -5.7pt);
+			\draw (T)++(.7pt, -.7pt) -- ++(-5.7pt, 5.7pt);
+		\end{tikzpicture}}}%
+	\hspace{1.ex}\textbf{\color{black}\inserttocsection}\par%
+}
+
+\defbeamertemplate{section in toc}{ost normal}{
+	\leavevmode\leftskip=5ex%
+	\llap{\raisebox{0.2ex}{\textcolor{OSTblackberry}{$\bullet$}}\kern1ex}%
+	\hspace{1.ex}\color{black}\inserttocsection\par%
+}
+
+\setbeamertemplate{section in toc}[ost normal]
+\setbeamertemplate{section in toc shaded}{%
 	\leavevmode\leftskip=5ex%
 	\llap{\raisebox{0.2ex}{\textcolor{OSTblackberry}{$\bullet$}}\kern1ex}%
 	\hspace{1.ex}\color{black}\inserttocsection\par%
@@ -105,23 +127,26 @@
 	\llap{\raisebox{0.2ex}{\textcolor{OSTblack}{\small$\bullet$}}\kern1ex}%
 	\hspace{1.ex}\inserttocsubsection\par%
 }
+\setbeamertemplate{subsection in toc shaded}{%
+	\leavevmode\leftskip=8ex%
+	\llap{\raisebox{0.2ex}{\textcolor{OSTblack}{\small$\bullet$}}\kern1ex}%
+	\hspace{1.ex}\inserttocsubsection\par%
+}
+
 
 \setbeamertemplate{itemize item}[circle]
 \setbeamercolor*{itemize item}{fg=OSTblackberry}
 \setbeamertemplate{itemize subitem}[circle]
-\setbeamercolor*{itemize subitem}{fg=OSTlightgray}
-\setbeamertemplate{itemize subsubitem}[triangle]
-\setbeamercolor*{itemize subsubitem}{fg=OSTlightgray}
+\setbeamercolor*{itemize subitem}{fg=OSTblack}
+\setbeamertemplate{itemize subsubitem}{-}
+\setbeamercolor*{itemize subsubitem}{fg=OSTblack}
 
 \setbeamertemplate{enumerate item}{\arabic{enumi})}
 \setbeamercolor{enumerate item}{fg=OSTblackberry}
-\setbeamertemplate{enumerate subitem}{\roman{enumii})}
+\setbeamertemplate{enumerate subitem}{\arabic{enumi}.\arabic{enumii})}
 \setbeamercolor{enumerate subitem}{fg=black}
-\setbeamertemplate{enumerate subsubitem}{\alph{enumiii})}
+\setbeamertemplate{enumerate subsubitem}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii})}
 \setbeamercolor{enumerate subsubitem}{fg=black}
-
-\setbeamertemplate{caption}{\scshape\scriptsize\textcolor{OSTblackberry}{\insertcaptionname:}~\insertcaption}
-
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Title page
@@ -145,8 +170,8 @@
 			\node[yshift=7.5mm] at (current page.center) {\includegraphics[width=\the\paperwidth]{\Background}};
 		
 			% OST bars
-			\node[anchor=south west, fill=OSTlightgray, opacity=0.8, inner ysep=2mm] at (69.9mm, 35.1mm) (title) {\parbox{75.mm}{\textbf{\color{OSTblackberry}\LARGE\Title\strut}\vspace{-0.3\baselineskip}}};
-			\node[anchor=north west, fill=OSTraspberry, opacity=0.8, inner ysep=1mm] at (55.9mm,35.25mm) (subtitle) {\parbox{52.mm}{\textbf{\color{OSTwhite}\large\Subtitle\strut}\vspace{-0.15\baselineskip}}};
+			\node[anchor=south west,fill=OSTlightgray,fill opacity=0.8,text opacity=1,inner ysep=2mm] at (69.9mm, 35.1mm) (title) {\parbox{75.mm}{\textbf{\color{OSTblackberry}\LARGE\Title\strut}\vspace{-0.3\baselineskip}}};
+			\node[anchor=north west,fill=OSTraspberry,fill opacity=0.8,text opacity=1,inner ysep=1mm] at (55.9mm,35.25mm) (subtitle) {\parbox{52.mm}{\text{\color{OSTwhite}\large\Subtitle\strut}\vspace{-0.15\baselineskip}}};
 			
 			% OST footbar
 			\node[anchor=south west, fill=OSTwhite, minimum height=14.5mm, minimum width=\the\paperwidth] at (0mm, 0mm) (footbar){};
@@ -164,26 +189,42 @@
 \setbeamertemplate{footline}
 {
     \begin{tikzpicture}
-        \pgfmathparse{\paperwidth/\inserttotalframenumber*\insertframenumber}
-        \pgfmathresult \let\hsrBeamerProgressWidth\pgfmathresult
+        \useasboundingbox (0,0) rectangle (\the\paperwidth,1.0cm);
+		\coordinate (barpos) at (10.4mm, 6mm);
+		
+		%        \ifx \ProgressBar \True
+		%	         \pgfmathparse{\paperwidth/\inserttotalframenumber*\insertframenumber}
+		%	         \pgfmathresult \let\hsrBeamerProgressWidth\pgfmathresult
+		%            \draw[draw,fill] (0,1.2cm) rectangle (\hsrBeamerProgressWidth pt,1.15cm);
+		%        \fi   
 
-        \useasboundingbox (0,0) rectangle (\the\paperwidth,1.2cm);
-        \draw[color=OSTblack] (0,1.2cm) -- (\the\paperwidth,1.2cm);
+        \node[inner sep=0pt,anchor=west] at (140.7mm, 5mm) {\includegraphics[height=7.4mm]{header/ost_logo_no_text}};
+        \node[outer xsep=1pt,anchor=north east] at (barpos) (slidenr) {\insertframenumber};
+        \fill[color=OSTblackberry] (barpos) rectangle ++(1.5pt, -8mm);
+        \node[outer xsep=2pt,anchor=north west] at (barpos) (title) {\parbox{66mm}{\TitleShort}};
+        \node[right=4.7mm of title.north east,anchor=north west] (date) {\parbox{45mm}{\titledate\today}};
 
-        \ifx \ProgressBar \True
-            \draw[draw,fill] (0,1.2cm) rectangle (\hsrBeamerProgressWidth pt,1.15cm);
-        \fi
-
-        \node[inner sep=0pt,anchor=west] at (1em,0.6cm)  {\includegraphics[width=2.5cm]{header/ost_logo}};
-
-        \node[inner sep=0pt,anchor=center] at (0.5*\the\paperwidth,0.8cm){\scriptsize{\insertframenumber}};
-        \node[inner sep=0pt,anchor=center] at (0.5*\the\paperwidth,0.4cm){\scriptsize{\AuthorShort}};
-
-        \ifdefempty{\Institute}{}{
-            \node[inner sep=0pt,anchor=east] at (\the\paperwidth-1em,0.6cm) {\InstituteShort};
-        }
-
+%        \ifdefempty{\Institute}{}{
+%            \node[inner sep=0pt,anchor=east] at (\the\paperwidth-1em,0.6cm) {\InstituteShort};
+%        }
     \end{tikzpicture}
+}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% header
+\newcommand{\ostheadline}[1]{
+	\begin{tikzpicture}
+		\useasboundingbox (0,0) rectangle (\the\paperwidth, 10.2mm);
+		\node[inner sep=0pt,anchor=south west] at (10mm, 3.2mm) (section) {\textbf{\small\color{OSTblack}#1}};
+	\end{tikzpicture}}
+\defbeamertemplate{headline}{ost headline}{\ostheadline{\insertsection}}
+\setbeamertemplate{headline}[ost headline]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% frametitle
+\setbeamertemplate{frametitle}
+{
+	\textbf{\LARGE\color{OSTblackberry}\insertframetitle}
 }
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -192,9 +233,12 @@
 \ifx \TocAtSection \True
     \AtBeginSection[]
     {
+		\setbeamertemplate{headline}{\ostheadline{\contentsname}}
+    	\setbeamertemplate{section in toc}[ost arrow]
         \begin{frame}<beamer>
-            \frametitle{\contentsname}
             \OstToc[currentsection]
         \end{frame}
+    	\setbeamertemplate{section in toc}[ost normal]
+    	\setbeamertemplate{headline}[ost headline]
     }
 \fi

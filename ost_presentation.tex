@@ -14,21 +14,20 @@
 
 \RequirePackage[l2tabu, orthodox]{nag}    % Warnings for obsolete packages
 \RequirePackage{etex}                     % Load e-TeX engine
-\documentclass[aspectratio=169, arial]{beamer}    % 169 (16:9) or 43 (4:3)
+\documentclass[aspectratio=169]{beamer}    % 169 (16:9) or 43 (4:3)
 \usepackage[utf8]{inputenc}               % Always use UTF-8!
 
 \newcommand*{\Title}{Your Presentation Title}
-\newcommand*{\TitleShort}{Title}
+\newcommand*{\TitleShort}{Short Version of the Title}
 \newcommand*{\Subtitle}{Your fancy Subtitle}
-\newcommand*{\Author}{Patrik Müller}
-\newcommand*{\AuthorShort}{P. Müller}
+\newcommand*{\Author}{Your Name}
+\newcommand*{\AuthorShort}{Y. Name}
 \newcommand*{\Topic}{Topic}
 \newcommand*{\Lang}{en}
 %\newcommand*{\Institute}{institutes/ICOM-Institute_for_Communication_System_CMYK.eps}
 \newcommand*{\Institute}{Institute / Department}
 \newcommand*{\InstituteShort}{Inst}
-%\newcommand*{\Background}{backgrounds/title_rapperswil}
-\newcommand*{\TitlepageType}{0}
+\newcommand*{\TitlepageType}{1}
 \newcommand*{\Location}{rapperswil}
 \newcommand*{\TocAtSection}{true}
 \newcommand*{\TocSplit}{9}
@@ -61,7 +60,8 @@
 
 \frame[plain]{\titlepage}
 
-\begin{frame}{\contentsname}
+\section*{\contentsname}
+\begin{frame}
 	\OstToc
 \end{frame}
 
@@ -127,6 +127,8 @@
         or without title.
     \end{ostbox}
 \end{frame}
+
+\subsection{First subsection of second section}
 \begin{frame}{Columns and graphics}
     \begin{columns}[onlytextwidth]
         \begin{column}{0.5\textwidth}
@@ -144,26 +146,28 @@
     \end{columns}
 \end{frame}
 
-\section{Third Section}
-\begin{frame}
-	Emtpy frame
-\end{frame}
-
-\section{Forth Section}
-\subsection{Subsection One}
-\begin{frame}
-	Emtpy frame
-\end{frame}
-\subsection{Subsection Two}
-\begin{frame}
-	Emtpy frame
-\end{frame}
+%\section{Third Section}
+%\begin{frame}
+%	Emtpy frame
+%\end{frame}
+%
+%\section{Forth Section}
+%\subsection{Subsection One}
+%\begin{frame}
+%	Emtpy frame
+%\end{frame}
+%\subsection{Subsection Two}
+%\begin{frame}
+%	Emtpy frame
+%\end{frame}
 
 \section{Last section}
 \begin{frame}{A nice graphic}
     \centering
     \input{images/timeline}
 \end{frame}
+
+\section*{}
 \begin{frame}{The End}
     \centering
     \LARGE That's all folks!
