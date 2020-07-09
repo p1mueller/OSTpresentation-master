@@ -24,6 +24,8 @@
 % Math
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{esint}
 
 % Babel
 \newcommand*{\LangDE}{de}
@@ -54,7 +56,8 @@
 \pgfplotsset{compat = 1.3}
 
 % Listings
-\usepackage{listings}
+%\usepackage{listings}
+\input{header/listings}
 
 % SI Units
 \usepackage{siunitx}
@@ -92,8 +95,12 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Color scheme
-\setbeamercolor*{structure}{fg=OSTblackberry, bg=OSTblackberry}
-\setbeamercolor*{frametitle}{fg=white,bg=OSTblackberry}
+\setbeamercolor*{structure}{fg=white, bg=OSTblackberry}
+\setbeamercolor*{palette primary}{use=structure, bg=OSTdarkpurple}
+\setbeamercolor*{palette secondary}{use=structure, bg=OSTlightpurple}
+\setbeamercolor*{frametitle}{fg=white, bg=OSTblackberry}
+\setbeamercolor*{alerted text}{fg=OSTdarkred}
+\setbeamercolor*{example text}{fg=OSTdarkgreen}
 
 \defbeamertemplate{section in toc}{ost arrow}{
 	\leavevmode\leftskip=5ex%
@@ -149,6 +156,27 @@
 \setbeamercolor{enumerate subsubitem}{fg=black}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Blocks
+\newcommand{\blockbegin}[1]{
+	\ifx\insertblocktitle\empty
+		\begin{tcolorbox}[colback=white,colframe=#1,coltext=black,coltitle=white]
+	\else
+		\begin{tcolorbox}[colback=white,colframe=#1,coltext=black,coltitle=white,title=\insertblocktitle]
+	\fi
+}
+\defbeamertemplateparent{blocks}[framed]{block begin,block alerted begin,block example begin,%
+	block example end,block alerted end,block end}[1][]{[#1]}
+\defbeamertemplate{block begin}{framed}[1][]{\blockbegin{structure.bg}}
+\defbeamertemplate{block alerted begin}{framed}[1][]{\blockbegin{alerted text.fg}}
+\defbeamertemplate{block example begin}{framed}[1][]{\blockbegin{example text.fg}}
+\defbeamertemplate{block end}{framed}[1][]{\end{tcolorbox}}
+\defbeamertemplate{block alerted end}{framed}[1][]{\end{tcolorbox}}
+\defbeamertemplate{block example end}{framed}[1][]{\end{tcolorbox}}
+%\setbeamertemplate{blocks}[rounded]
+\setbeamertemplate{blocks}[framed]
+\setbeamertemplate{theorems}[numbered]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Title page
 \defbeamertemplate*{title page}{customized}[1][]{
     \begin{tikzpicture}[remember picture,overlay,shift=(current page.south west)]
@@ -191,22 +219,11 @@
     \begin{tikzpicture}
         \useasboundingbox (0,0) rectangle (\the\paperwidth,1.0cm);
 		\coordinate (barpos) at (10.4mm, 6mm);
-		
-		%        \ifx \ProgressBar \True
-		%	         \pgfmathparse{\paperwidth/\inserttotalframenumber*\insertframenumber}
-		%	         \pgfmathresult \let\hsrBeamerProgressWidth\pgfmathresult
-		%            \draw[draw,fill] (0,1.2cm) rectangle (\hsrBeamerProgressWidth pt,1.15cm);
-		%        \fi   
-
         \node[inner sep=0pt,anchor=west] at (140.7mm, 5mm) {\includegraphics[height=7.4mm]{header/ost_logo_no_text}};
         \node[outer xsep=1pt,anchor=north east] at (barpos) (slidenr) {\insertframenumber};
         \fill[color=OSTblackberry] (barpos) rectangle ++(1.5pt, -8mm);
         \node[outer xsep=2pt,anchor=north west] at (barpos) (title) {\parbox{66mm}{\TitleShort}};
         \node[right=4.7mm of title.north east,anchor=north west] (date) {\parbox{45mm}{\titledate\today}};
-
-%        \ifdefempty{\Institute}{}{
-%            \node[inner sep=0pt,anchor=east] at (\the\paperwidth-1em,0.6cm) {\InstituteShort};
-%        }
     \end{tikzpicture}
 }
 
@@ -216,6 +233,9 @@
 	\begin{tikzpicture}
 		\useasboundingbox (0,0) rectangle (\the\paperwidth, 10.2mm);
 		\node[inner sep=0pt,anchor=south west] at (10mm, 3.2mm) (section) {\textbf{\small\color{OSTblack}#1}};
+		\ifx \SubtitleInHeader \True
+			\node[inner sep=0pt,anchor=south east] at (10mm+\linewidth, 3.2mm) (subsection) {\textbf{\scriptsize\color{OSTblack}\insertsubsection}};
+		\fi
 	\end{tikzpicture}}
 \defbeamertemplate{headline}{ost headline}{\ostheadline{\insertsection}}
 \setbeamertemplate{headline}[ost headline]

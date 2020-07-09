@@ -14,7 +14,7 @@
 
 \RequirePackage[l2tabu, orthodox]{nag}    % Warnings for obsolete packages
 \RequirePackage{etex}                     % Load e-TeX engine
-\documentclass[aspectratio=169]{beamer}    % 169 (16:9) or 43 (4:3)
+\documentclass[aspectratio=169,envcountsect]{beamer}    % 169 (16:9) or 43 (4:3)
 \usepackage[utf8]{inputenc}               % Always use UTF-8!
 
 \newcommand*{\Title}{Your Presentation Title}
@@ -31,6 +31,7 @@
 \newcommand*{\Location}{rapperswil}
 \newcommand*{\TocAtSection}{true}
 \newcommand*{\TocSplit}{9}
+\newcommand*{\SubtitleInHeader}{true}
 \newcommand*{\ProgressBar}{false}
 
 \usepackage{xstring}
@@ -65,70 +66,111 @@
 	\OstToc
 \end{frame}
 
-\section{First section}
+\section{Lists}
+\subsection{Unordered Lists}
 \begin{frame}{Itemize}
     \begin{itemize}
-        \item This is an itemize environment
-        \item Nice!
-        \item Even sub-items are possible
-            \begin{itemize}
-                \item Wow
-                    \begin{itemize}
-                        \item such an
-                        \item awesome
-                    \end{itemize}
-                \item presentation!
-            \end{itemize}
-        \item The end.
+    	\item This is a ordered list
+    	\item Can you do more stuff with that?
+    	\begin{itemize}
+    		\item Oh,
+    		\item So they can also be nested?
+    		\begin{itemize}
+    			\item One more for good measure
+    			\item What an amazing tool
+    		\end{itemize}
+    		\item Pretty nice, right?
+    	\end{itemize}
+    	\item Have fun!
     \end{itemize}
 \end{frame}
+
+\subsection{Ordered Lists}
 \begin{frame}{Enumerate}
+	The Data Science Skills that will get you hired
     \begin{enumerate}
-        \item An item
-        \item and another one
-        \item Subitems:
-            \begin{enumerate}
-                \item This
-                    \begin{enumerate}
-                        \item test
-                    \end{enumerate}
-                \item is
-                \item nice
-            \end{enumerate}
-        \item The end.
+        \item Programming Skills
+        \begin{enumerate}
+        	\item Python
+        	\begin{enumerate}
+        		\item Numpy
+        		\item Pandas
+        		\item Matplotlib
+        	\end{enumerate}
+        	\item SQL
+        \end{enumerate}
+        \item Statistics
+        \item Machine Learning
+        \item Data Wrangling
+        \item Data Visualization \& Communication
+        \item Software Engineering
     \end{enumerate}
 \end{frame}
+
+\section{Math}
 \begin{frame}{Equations}
-    \begin{itemize}
-        \item Here, have an equation:
-            \[
-                \left|\int_{\Omega} Z\, d\mu\,\right| 
-                \leq \int_{\Omega} |\,Z\,|\, d\mu
-            \]
-        \item Or something using \texttt{align}:
-            \begin{align*}
-                S_x &= \frac{\hbar}{2} \begin{pmatrix}
-                0 & 1 \\ 1 & 0 \end{pmatrix} &
-                S_y &= \frac{\hbar}{2} \begin{pmatrix}
-                0 & -i \\ i & 0 \end{pmatrix} &
-                S_z &= \frac{\hbar}{2} \begin{pmatrix}
-                1 & 0 \\ 0 & -1 \end{pmatrix}
-            \end{align*}
-    \end{itemize}
+	\begin{itemize}
+		\item Here's an equation for you
+			\[
+				\iiint_V \left( \nabla \cdot \vec{F} \right) dV = \oiint_{\partial V} \vec{F}\cdot d\vec{S}
+			\]
+		\item Using \texttt{align}
+		\begin{align}
+			X[k] = \sum_{n=0}^{L-1}x[n]e^{-j\frac{2\pi}{N}n} 
+		\end{align}
+		\item Some inline math $\alpha=1-\sqrt{x^2+y^2}, \Delta\theta_i=(\theta-\theta_i)\mod 2\pi, \theta=\text{atan2}(y,x)$ 
+	\end{itemize}
 \end{frame}
 
-
-\section{Second section}
-\begin{frame}{Boxes}
-    \begin{ostbox}{}
-        Nice framed boxes also exist
-    \end{ostbox}
-    \begin{ostbox}{With \dots}
-        or without title.
-    \end{ostbox}
+\section{Blocks \& Boxes}
+\subsection{Text Blocks}
+\begin{frame}{Block}
+	\begin{block}{}
+		Block without a title
+	\end{block}
+	\begin{block}{A block}
+		Normal block with a title
+	\end{block}
+	\begin{alertblock}{Alert Block}
+		Alerting content
+	\end{alertblock}
+	\begin{exampleblock}{Examle Block}
+		Example content
+	\end{exampleblock}
 \end{frame}
 
-\subsection{First subsection of second section}
+\subsection{Math Boxes}
+\begin{frame}{Theorems}
+	\begin{theorem}[Central Limit Theorem]
+		Let $X_{i}$, with $1 \leq i \leq n$, be a sequence of mutually independent random variables with a common distribution $X$. Suppose that $\mu = E[X]$ and $\varsigma^2=\text{Var}[X]$ exist and let $S_n = \sum_{i=1}^n X_i$. Then, for every fixed $\beta$
+		\[
+			\lim_{n\to\infty} P\left[\frac{S_n - n\mu}{\varsigma\sqrt{n}} < \beta \right] = \Phi(\beta)
+		\]
+	\end{theorem}
+\end{frame}
+
+\begin{frame}{Definition}
+	\begin{definition}[Feistel Cipher]
+		A Feistel cipher is an iterated cipher mapping a $n = 2t$ bits plaintext (which we denote $(L_0,R_0)$, for $t$-bits blocks $L_0$ and $R_0$, to a ciphertext $(R_r,L_r)$, through a $r$-round process, where $r\geq 1$. For $1 \leq i \leq r$, round $i$ maps $(L_{i-1},R_{i-1}) \underset{K_i}{\rightarrow} (L_i,R_i)$ as follows:
+		\[
+			\left\{\begin{array}{l}
+				L_i = R_{i-1}\\
+				R_i = L_{i-1} \oplus f(R_{i-1},K_i)
+			\end{array}\right.
+		\]
+	\end{definition}
+\end{frame}
+%\section{Second section}
+%\begin{frame}{Boxes}
+%    \begin{ostbox}{}
+%        Nice framed boxes also exist
+%    \end{ostbox}
+%    \begin{ostbox}{With \dots}
+%        or without title.
+%    \end{ostbox}
+%\end{frame}
+%
+%\subsection{First subsection of second section}
 \begin{frame}{Columns and graphics}
     \begin{columns}[onlytextwidth]
         \begin{column}{0.5\textwidth}
@@ -145,33 +187,18 @@
         \end{column}
     \end{columns}
 \end{frame}
-
-%\section{Third Section}
-%\begin{frame}
-%	Emtpy frame
-%\end{frame}
 %
-%\section{Forth Section}
-%\subsection{Subsection One}
-%\begin{frame}
-%	Emtpy frame
-%\end{frame}
-%\subsection{Subsection Two}
-%\begin{frame}
-%	Emtpy frame
+%\section{Last section}
+%\begin{frame}{A nice graphic}
+%    \centering
+%    \input{images/timeline}
 %\end{frame}
 
-\section{Last section}
-\begin{frame}{A nice graphic}
-    \centering
-    \input{images/timeline}
-\end{frame}
-
-\section*{}
-\begin{frame}{The End}
-    \centering
-    \LARGE That's all folks!
-\end{frame}
+%\section*{}
+%\begin{frame}{The End}
+%    \centering
+%    \LARGE That's all folks!
+%\end{frame}
 
 \end{document}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
