@@ -53,7 +53,13 @@
 \usepackage[american currents]{circuitikz}
 \usepackage{tikz-timing}[2009/12/09]
 \usepackage{pgfplots}
+\usepackage{varwidth}
 \pgfplotsset{compat = 1.3}
+%\tikzset{
+%	max width/.style args={#1}{
+%		execute at begin node={\begin{varwidth}{#1}},
+%		execute at end node={\end{varwidth}}
+%}
 
 % Listings
 %\usepackage{listings}
@@ -70,7 +76,7 @@
 \usepackage{etoolbox}
 
 % OST Colorbox
-\usepackage{tcolorbox}
+\usepackage[many]{tcolorbox}
 \newtcolorbox{ostbox}[1]{colback=OSTwhite,colframe=OSTblackberry,title=#1}
 
 % Setup date-time format
@@ -79,6 +85,8 @@
 
 \newcommand*{\Background}{backgrounds/title_\Location_\TitlepageType}
 \setbeamertemplate{navigation symbols}{}
+
+\usepackage{environ}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Setup Document
@@ -155,13 +163,16 @@
 \setbeamertemplate{enumerate subsubitem}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii})}
 \setbeamercolor{enumerate subsubitem}{fg=black}
 
+\setbeamertemplate{caption}[numbered]
+\setbeamercolor{caption name}{fg=structure.bg}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Blocks
 \newcommand{\blockbegin}[1]{
 	\ifx\insertblocktitle\empty
-		\begin{tcolorbox}[colback=white,colframe=#1,coltext=black,coltitle=white]
+		\tcolorbox[colback=white,colframe=#1,coltext=black,coltitle=white]
 	\else
-		\begin{tcolorbox}[colback=white,colframe=#1,coltext=black,coltitle=white,title=\insertblocktitle]
+		\tcolorbox[colback=white,colframe=#1,coltext=black,coltitle=white,title=\insertblocktitle]
 	\fi
 }
 \defbeamertemplateparent{blocks}[framed]{block begin,block alerted begin,block example begin,%
@@ -169,12 +180,23 @@
 \defbeamertemplate{block begin}{framed}[1][]{\blockbegin{structure.bg}}
 \defbeamertemplate{block alerted begin}{framed}[1][]{\blockbegin{alerted text.fg}}
 \defbeamertemplate{block example begin}{framed}[1][]{\blockbegin{example text.fg}}
-\defbeamertemplate{block end}{framed}[1][]{\end{tcolorbox}}
-\defbeamertemplate{block alerted end}{framed}[1][]{\end{tcolorbox}}
-\defbeamertemplate{block example end}{framed}[1][]{\end{tcolorbox}}
-%\setbeamertemplate{blocks}[rounded]
+\defbeamertemplate{block end}{framed}[1][]{\endtcolorbox}
+\defbeamertemplate{block alerted end}{framed}[1][]{\endtcolorbox}
+\defbeamertemplate{block example end}{framed}[1][]{\endtcolorbox}
 \setbeamertemplate{blocks}[framed]
 \setbeamertemplate{theorems}[numbered]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Quotes
+\defbeamertemplateparent{quotes}[framed]{quote begin,quote end}{}
+\RenewEnviron{quote}[1]{\begin{center}
+	\begin{tikzpicture}[remember picture, background rectangle/.style={fill=OSTlightpurple},show background rectangle]
+		\node[overlay] (OQ) {\fontfamily{LinuxLibertineT-LF}\fontsize{45pt}{45pt}\selectfont``};
+		\node[above right=-2pt and -20pt of OQ.north east,inner xsep=20pt,anchor=north west] (text) {\begin{varwidth}{\linewidth-50.5pt}\usebeamerfont{quote}\BODY\end{varwidth}};
+		\node[inner ysep=0pt,right=-20pt of text.south east,anchor=west,yshift=-2pt,overlay] (CQ) {\fontfamily{LinuxLibertineT-LF}\fontsize{45pt}{45pt}\selectfont''};
+		\ifx#1\empty\else\node[below=0pt of text.south east, inner xsep=20pt,anchor=north east] (author) {-- #1};\fi
+	\end{tikzpicture}\end{center}
+}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Title page

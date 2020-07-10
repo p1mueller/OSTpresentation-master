@@ -160,17 +160,42 @@
 		\]
 	\end{definition}
 \end{frame}
-%\section{Second section}
-%\begin{frame}{Boxes}
-%    \begin{ostbox}{}
-%        Nice framed boxes also exist
-%    \end{ostbox}
-%    \begin{ostbox}{With \dots}
-%        or without title.
-%    \end{ostbox}
-%\end{frame}
-%
-%\subsection{First subsection of second section}
+
+\subsection{Quotation}
+\begin{frame}{Quotes}
+	\begin{quote}{}
+		I'm an anonymous quote.
+	\end{quote}
+	\begin{quote}{Winston Churchill}
+		A lady came up to me one day and said 'Sir! You are drunk', to which I replied 'I am drunk today madam, and tomorrow I shall be sober but you will still be ugly.
+	\end{quote}
+\end{frame}
+
+\section{Figures and Tables}
+\begin{frame}{Figure}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=.8\textwidth]{images/example}
+		\caption{Example figure}
+		\label{fig:ex1}
+	\end{figure}	
+\end{frame}
+
+\begin{frame}{Table}
+	\begin{table}[h]
+		\centering
+		\caption{Tic-Tac-Toe}
+		\label{tab:tictactoe}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			x & o & x\\\hline
+			o & x & o\\\hline
+			o & x & x\\\hline
+		\end{tabular}
+	\end{table}	
+\end{frame}
+
+\section{Columns}
 \begin{frame}{Columns and graphics}
     \begin{columns}[onlytextwidth]
         \begin{column}{0.5\textwidth}
@@ -181,7 +206,7 @@
         \end{column}
         \begin{column}{0.5\textwidth}
             \centering
-            \includegraphics[width=0.8\linewidth]{header/ost_logo}
+            \includegraphics[width=0.6\linewidth]{header/ost_logo}
             \captionof{figure}{A sample image. You don't need any floats here, just
             use \texttt{captionof}.}
         \end{column}
