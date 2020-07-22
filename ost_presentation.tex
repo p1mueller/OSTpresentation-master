@@ -71,7 +71,6 @@
 \begin{frame}{Itemize}
     \begin{itemize}
     	\item This is a ordered list
-    	\item Can you do more stuff with that?
     	\begin{itemize}
     		\item Oh,
     		\item So they can also be nested?
@@ -181,17 +180,27 @@
 	\end{figure}	
 \end{frame}
 
+\begin{frame}{tikz-Graphic}
+	\begin{figure}[h]
+		\centering
+		\input{images/ssb_tx}
+		\caption{SSB Tx with Phasing Method}
+		\label{fig:ex2}
+	\end{figure}	
+\end{frame}
+
 \begin{frame}{Table}
 	\begin{table}[h]
 		\centering
 		\caption{Tic-Tac-Toe}
 		\label{tab:tictactoe}
+		{\Large
 		\begin{tabular}{|c|c|c|}
 			\hline
 			x & o & x\\\hline
 			o & x & o\\\hline
 			o & x & x\\\hline
-		\end{tabular}
+		\end{tabular}}
 	\end{table}	
 \end{frame}
 
@@ -213,17 +222,32 @@
     \end{columns}
 \end{frame}
 %
-%\section{Last section}
-%\begin{frame}{A nice graphic}
-%    \centering
-%    \input{images/timeline}
-%\end{frame}
 
-%\section*{}
-%\begin{frame}{The End}
+\section*{}
+\begin{frame}{The End}
+	\begin{center}
+		
+		\def\s{4.8}
+		\begin{tikzpicture}[state/.style={circle,minimum width=1.4cm,font=\scriptsize,fill=OSTlightpurple,draw},
+		event/.style={->, -latex, font=\tiny}]
+		% Draw state nodes
+		\node[state] at (\s/2, {sqrt(3)/2*\s}) (busy) {Busy};
+		\node[state] at (\s/2, {sqrt(3)/6*\s}) (normal) {Normal};
+		\node[state] at (0, 0) (sleep) {Sleeping};
+		\node[state] at (\s, 0) (hungry) {Hungry};
+		
+		% Draw event arrows
+		\draw[event] (sleep) to node[midway,above,sloped] {get up}(normal);
+		\draw[event] (normal) to node[midway,above,sloped] {study}(busy);
+		\draw[event] (hungry) to node[midway,above,sloped] {eat}(normal);
+		\draw[event] (busy) to [bend right=45] node[midway,above,sloped]{get tired} (sleep);
+		\draw[event] (sleep) to [bend right=45] node[midway,above,sloped]{get hungry} (hungry);
+		\draw[event] (busy) to [bend left=45] node[midway,above,sloped]{get hungry} (hungry);
+		\end{tikzpicture}
+	\end{center}
 %    \centering
 %    \LARGE That's all folks!
-%\end{frame}
+\end{frame}
 
 \end{document}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %

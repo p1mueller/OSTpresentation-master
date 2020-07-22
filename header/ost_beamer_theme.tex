@@ -49,7 +49,7 @@
 \usepackage{caption}
 \usepackage{epstopdf}
 \usepackage{tikz}
-\usetikzlibrary{arrows,backgrounds,fit,positioning,calc,shapes,math}
+\usetikzlibrary{arrows,backgrounds,fit,positioning,calc,shapes,math,arrows.meta}
 \usepackage[american currents]{circuitikz}
 \usepackage{tikz-timing}[2009/12/09]
 \usepackage{pgfplots}
@@ -83,9 +83,6 @@
 \usepackage{datetime}
 \newdateformat{titledate}{\THEDAY.~\monthname\space\THEYEAR}
 
-\newcommand*{\Background}{backgrounds/title_\Location_\TitlepageType}
-\setbeamertemplate{navigation symbols}{}
-
 \usepackage{environ}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -101,12 +98,15 @@
     pdfcreator={LaTeX with hyperref and Beamer}
 }
 
+\newcommand*{\Background}{backgrounds/title_\Location_\TitlepageType}
+\setbeamertemplate{navigation symbols}{}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Color scheme
 \setbeamercolor*{structure}{fg=white, bg=OSTblackberry}
 \setbeamercolor*{palette primary}{use=structure, bg=OSTdarkpurple}
 \setbeamercolor*{palette secondary}{use=structure, bg=OSTlightpurple}
-\setbeamercolor*{frametitle}{fg=white, bg=OSTblackberry}
+\setbeamercolor*{frametitle}{use=structure}
 \setbeamercolor*{alerted text}{fg=OSTdarkred}
 \setbeamercolor*{example text}{fg=OSTdarkgreen}
 

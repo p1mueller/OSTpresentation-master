@@ -1,0 +1,35 @@
+\scalebox{0.7}{
+\begin{tikzpicture}[myarrow/.style={->,>={Stealth[inset=0pt,length=8pt,angle'=60,round]}}]
+	\draw
+		(0,0) node(start){}
+		(start) node[left]{AF signal}
+		(3,-2.5) node[twoportshape,t=$90^\circ$,anchor=east](shift1){}
+		(4.5,2.5) node[mixer](mix1){}
+		(mix1.north) node[above]{Mixer}
+		(4.5,-2.5) node[mixer](mix2){}
+		(mix2.south) node[below]{Mixer}
+		(8,0) node[adder](add){}
+		(10,0) node[ampshape](pa){}
+		(12,0) node[antenna](ant){}
+		(ant) node[above=2.1cm]{Tx}
+		(pa.north) node[above]{PA}
+		(start) to (1,0)
+		(1,0) |- (shift1.west)
+		(add.east) to (pa.west)
+		(pa.east) -- (ant);
+	\draw[myarrow](1,0) |- (mix1.in);
+	\draw[myarrow](shift1.east) -- (mix2.in);
+	\draw[myarrow](mix1.out)-|node[pos=0.95,xshift=0.4cm]{\Large +}(add.north);
+	\draw[myarrow](mix2.out)-|node[pos=0.95,xshift=0.4cm]{\Large +}(add.south);
+	\draw 
+		(3,0.5) node[oscillator](lo){}
+		(lo.south) node[below]{LO}
+		(4.5,-0.75) node[twoportshape,t=$90^\circ$](shift2){}
+		(lo.east)-|(shift2.north);
+	\draw[myarrow](lo.east)-|(mix1.south);
+	\draw[myarrow](shift2.south)--(mix2.north);
+	%(0,0) node[spdt] (Sw) {}
+	%(Sw.in) node[left] {in}
+	%(Sw.out 1) node[right] {out 1}
+	%(Sw.out 2) node[right] {out 2};
+\end{tikzpicture}}
