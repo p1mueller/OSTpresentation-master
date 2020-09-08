@@ -6,9 +6,9 @@
 % See https://github.com/HBadertscher/HSRPresentation
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % "THE BEER-WARE LICENSE" (Revision 42):
-% Patrik Müller (p1muelle@hsr.ch) wrote this LaTeX template. As long as you retain 
-% this notice you can do whatever you want with this stuff. If we meet some day, 
-% and you think this stuff is worth it, you can buy me a beer in return. 
+% Patrik Müller (p1muelle@hsr.ch) wrote this LaTeX template. As long as you retain
+% this notice you can do whatever you want with this stuff. If we meet some day,
+% and you think this stuff is worth it, you can buy me a beer in return.
 % - Patrik Müller
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -39,7 +39,7 @@
 \newcommand{\OstToc}[1][]{
 	\IfInteger{\TocSplit}
 	{
-		\tikzmath{integer \nextsection; \nextsection = \TocSplit + 1;}
+		\tikzmath{integer \nextsection; \nextsection = \TocSplit+1;}
 		\begin{columns}[t]
 			\begin{column}{0.5\textwidth}
 				\tableofcontents[sections=1-\TocSplit, #1]
@@ -63,190 +63,189 @@
 
 \section*{\contentsname}
 \begin{frame}
-	\OstToc
+ \OstToc{}
 \end{frame}
 
 \section{Lists}
 \subsection{Unordered Lists}
 \begin{frame}{Itemize}
-    \begin{itemize}
-    	\item This is a ordered list
-    	\begin{itemize}
-    		\item Oh,
-    		\item So they can also be nested?
-    		\begin{itemize}
-    			\item One more for good measure
-    			\item What an amazing tool
-    		\end{itemize}
-    		\item Pretty nice, right?
-    	\end{itemize}
-    	\item Have fun!
-    \end{itemize}
+ \begin{itemize}
+  \item This is a ordered list
+        \begin{itemize}
+         \item Oh,
+         \item So they can also be nested?
+               \begin{itemize}
+                \item One more for good measure
+                \item What an amazing tool
+               \end{itemize}
+         \item Pretty nice, right?
+        \end{itemize}
+  \item Have fun!
+ \end{itemize}
 \end{frame}
 
 \subsection{Ordered Lists}
 \begin{frame}{Enumerate}
-	The Data Science Skills that will get you hired
-    \begin{enumerate}
-        \item Programming Skills
+ The Data Science Skills that will get you hired
+ \begin{enumerate}
+  \item Programming Skills
         \begin{enumerate}
-        	\item Python
-        	\begin{enumerate}
-        		\item Numpy
-        		\item Pandas
-        		\item Matplotlib
-        	\end{enumerate}
-        	\item SQL
+         \item Python
+               \begin{enumerate}
+                \item Numpy
+                \item Pandas
+                \item Matplotlib
+               \end{enumerate}
+         \item SQL
         \end{enumerate}
-        \item Statistics
-        \item Machine Learning
-        \item Data Wrangling
-        \item Data Visualization \& Communication
-        \item Software Engineering
-    \end{enumerate}
+  \item Statistics
+  \item Machine Learning
+  \item Data Wrangling
+  \item Data Visualization \& Communication
+  \item Software Engineering
+ \end{enumerate}
 \end{frame}
 
 \section{Math}
 \begin{frame}{Equations}
-	\begin{itemize}
-		\item Here's an equation for you
-			\[
-				\iiint_V \left( \nabla \cdot \vec{F} \right) dV = \oiint_{\partial V} \vec{F}\cdot d\vec{S}
-			\]
-		\item Using \texttt{align}
-		\begin{align}
-			X[k] = \sum_{n=0}^{L-1}x[n]e^{-j\frac{2\pi}{N}n} 
-		\end{align}
-		\item Some inline math $\alpha=1-\sqrt{x^2+y^2}, \Delta\theta_i=(\theta-\theta_i)\mod 2\pi, \theta=\text{atan2}(y,x)$ 
-	\end{itemize}
+ \begin{itemize}
+  \item Here's an equation for you
+        \[
+         \iiint_V \left( \nabla \cdot \vec{F} \right) dV = \oiint_{\partial V} \vec{F}\cdot d\vec{S}
+        \]
+  \item Using \texttt{align}
+        \begin{align}
+         X[k] = \sum_{n=0}^{L-1}x[n]e^{-j\frac{2\pi}{N}n}
+        \end{align}
+  \item Some inline math \(\alpha=1-\sqrt{x^2+y^2}, \Delta\theta_i=(\theta-\theta_i)\mod 2\pi, \theta=\text{atan2}(y,x)\)
+ \end{itemize}
 \end{frame}
 
 \section{Blocks \& Boxes}
 \subsection{Text Blocks}
 \begin{frame}{Block}
-	\begin{block}{}
-		Block without a title
-	\end{block}
-	\begin{block}{A block}
-		Normal block with a title
-	\end{block}
-	\begin{alertblock}{Alert Block}
-		Alerting content
-	\end{alertblock}
-	\begin{exampleblock}{Examle Block}
-		Example content
-	\end{exampleblock}
+ \begin{block}{}
+  Block without a title
+ \end{block}
+ \begin{block}{A block}
+  Normal block with a title
+ \end{block}
+ \begin{alertblock}{Alert Block}
+  Alerting content
+ \end{alertblock}
+ \begin{exampleblock}{Example Block}
+  Example content
+ \end{exampleblock}
 \end{frame}
 
 \subsection{Math Boxes}
 \begin{frame}{Theorems}
-	\begin{theorem}[Central Limit Theorem]
-		Let $X_{i}$, with $1 \leq i \leq n$, be a sequence of mutually independent random variables with a common distribution $X$. Suppose that $\mu = E[X]$ and $\varsigma^2=\text{Var}[X]$ exist and let $S_n = \sum_{i=1}^n X_i$. Then, for every fixed $\beta$
-		\[
-			\lim_{n\to\infty} P\left[\frac{S_n - n\mu}{\varsigma\sqrt{n}} < \beta \right] = \Phi(\beta)
-		\]
-	\end{theorem}
+ \begin{theorem}[Central Limit Theorem]
+  Let \(X_{i}\), with \(1 \leq i \leq n\), be a sequence of mutually independent random variables with a common distribution \(X\). Suppose that \(\mu = E[X]\) and \(\varsigma^2=\text{Var}[X]\) exist and let \(S_n = \sum_{i=1}^n X_i\). Then, for every fixed \(\beta \)
+  \[
+   \lim_{n\to\infty} P\left[\frac{S_n - n\mu}{\varsigma\sqrt{n}} < \beta \right] = \Phi(\beta)
+  \]
+ \end{theorem}
 \end{frame}
 
 \begin{frame}{Definition}
-	\begin{definition}[Feistel Cipher]
-		A Feistel cipher is an iterated cipher mapping a $n = 2t$ bits plaintext (which we denote $(L_0,R_0)$, for $t$-bits blocks $L_0$ and $R_0$, to a ciphertext $(R_r,L_r)$, through a $r$-round process, where $r\geq 1$. For $1 \leq i \leq r$, round $i$ maps $(L_{i-1},R_{i-1}) \underset{K_i}{\rightarrow} (L_i,R_i)$ as follows:
-		\[
-			\left\{\begin{array}{l}
-				L_i = R_{i-1}\\
-				R_i = L_{i-1} \oplus f(R_{i-1},K_i)
-			\end{array}\right.
-		\]
-	\end{definition}
+ \begin{definition}[Feistel Cipher]
+  A Feistel cipher is an iterated cipher mapping a \(n = 2t\) bits plain-text (which we denote \((L_0,R_0)\)), for \(t\)-bits blocks \(L_0\) and \(R_0\), to a cipher-text \((R_r,L_r)\), through a \(r\)-round process, where \(r\geq 1\). For \(1 \leq i \leq r\), round \(i\) maps \((L_{i-1},R_{i-1}) \underset{K_i}{\rightarrow} (L_i,R_i)\) as follows:
+  \[
+   \left\{\begin{array}{l}
+    L_i = R_{i-1} \\
+    R_i = L_{i-1} \oplus f(R_{i-1},K_i)
+   \end{array}\right.
+  \]
+ \end{definition}
 \end{frame}
 
 \subsection{Quotation}
 \begin{frame}{Quotes}
-	\begin{quote}{}
-		I'm an anonymous quote.
-	\end{quote}
-	\begin{quote}{Winston Churchill}
-		A lady came up to me one day and said 'Sir! You are drunk', to which I replied 'I am drunk today madam, and tomorrow I shall be sober but you will still be ugly.
-	\end{quote}
+ \begin{quote}{}
+  I'm an anonymous quote.
+ \end{quote}
+ \begin{quote}{Winston Churchill}
+  A lady came up to me one day and said `Sir! You are drunk', to which I replied `I am drunk today madam, and tomorrow I shall be sober but you will still be ugly.
+ \end{quote}
 \end{frame}
 
 \section{Figures and Tables}
 \begin{frame}{Figure}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=.8\textwidth]{images/example}
-		\caption{Example figure}
-		\label{fig:ex1}
-	\end{figure}	
+ \begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{images/example}
+  \caption{Example figure}
+  \label{fig:ex1}
+ \end{figure}
 \end{frame}
 
 \begin{frame}{tikz-Graphic}
-	\begin{figure}[h]
-		\centering
-		\input{images/ssb_tx}
-		\caption{SSB Tx with Phasing Method}
-		\label{fig:ex2}
-	\end{figure}	
+ \begin{figure}[h]
+  \centering
+  \input{images/ssb_tx}
+  \caption{SSB Tx with Phasing Method}
+  \label{fig:ex2}
+ \end{figure}
 \end{frame}
 
 \begin{frame}{Table}
-	\begin{table}[h]
-		\centering
-		\caption{Tic-Tac-Toe}
-		\label{tab:tictactoe}
-		{\Large
-		\begin{tabular}{|c|c|c|}
-			\hline
-			x & o & x\\\hline
-			o & x & o\\\hline
-			o & x & x\\\hline
-		\end{tabular}}
-	\end{table}	
+ \begin{table}[h]
+  \centering
+  \caption{Tic-Tac-Toe}\label{tab:tictactoe}
+  {\Large
+   \begin{tabular}{c|c|c}
+    % \toprule
+    x & o & x \\\midrule
+    o & x & o \\\midrule
+    o & x & x \\
+		% \bottomrule
+   \end{tabular}}
+ \end{table}
 \end{frame}
 
 \section{Columns}
 \begin{frame}{Columns and graphics}
-    \begin{columns}[onlytextwidth]
-        \begin{column}{0.5\textwidth}
-            \begin{itemize}
-                \item Multi-col environments should be made using \texttt{columns}!
-                \item \emph{Never} use \texttt{minipage}'s or \texttt{multicols}.
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.5\textwidth}
-            \centering
-            \includegraphics[width=0.6\linewidth]{header/ost_logo}
-            \captionof{figure}{A sample image. You don't need any floats here, just
-            use \texttt{captionof}.}
-        \end{column}
-    \end{columns}
+	\begin{columns}[onlytextwidth]
+  	\begin{column}{0.5\textwidth}
+   		\begin{itemize}
+    		\item Multi-col environments should be made using \texttt{columns}!
+    		\item \emph{Never} use \texttt{minipage}'s or \texttt{multicols}.
+   		\end{itemize}
+  	\end{column}
+  \begin{column}{0.5\textwidth}
+  	\centering
+   	\includegraphics[width=0.6\linewidth]{header/ost_logo}
+   	\captionof{figure}{A sample image. You don't need any floats here, just
+    use \texttt{captionof}.}
+  \end{column}
+ \end{columns}
 \end{frame}
 %
 
 \section*{}
 \begin{frame}{The End}
-	\begin{center}
-		
-		\def\s{4.8}
-		\begin{tikzpicture}[state/.style={circle,minimum width=1.4cm,font=\scriptsize,fill=OSTlightpurple,draw},
-		event/.style={->, -latex, font=\tiny}]
-		% Draw state nodes
-		\node[state] at (\s/2, {sqrt(3)/2*\s}) (busy) {Busy};
-		\node[state] at (\s/2, {sqrt(3)/6*\s}) (normal) {Normal};
-		\node[state] at (0, 0) (sleep) {Sleeping};
-		\node[state] at (\s, 0) (hungry) {Hungry};
-		
-		% Draw event arrows
-		\draw[event] (sleep) to node[midway,above,sloped] {get up}(normal);
-		\draw[event] (normal) to node[midway,above,sloped] {study}(busy);
-		\draw[event] (hungry) to node[midway,above,sloped] {eat}(normal);
-		\draw[event] (busy) to [bend right=45] node[midway,above,sloped]{get tired} (sleep);
-		\draw[event] (sleep) to [bend right=45] node[midway,above,sloped]{get hungry} (hungry);
-		\draw[event] (busy) to [bend left=45] node[midway,above,sloped]{get hungry} (hungry);
-		\end{tikzpicture}
-	\end{center}
-%    \centering
-%    \LARGE That's all folks!
+ \begin{center}
+  \def\s{4.8}
+  \begin{tikzpicture}[state/.style={circle,minimum width=1.4cm,font=\scriptsize,fill=OSTlightpurple,draw},
+    event/.style={->, -latex, font=\tiny}]
+   % Draw state nodes
+   \node[state] at (\s/2, {sqrt(3)/2*\s}) (busy) {Busy};
+   \node[state] at (\s/2, {sqrt(3)/6*\s}) (normal) {Normal};
+   \node[state] at (0, 0) (sleep) {Sleeping};
+   \node[state] at (\s, 0) (hungry) {Hungry};
+
+   % Draw event arrows
+   \draw[event] (sleep) to node[midway,above,sloped] {get up}(normal);
+   \draw[event] (normal) to node[midway,above,sloped] {study}(busy);
+   \draw[event] (hungry) to node[midway,above,sloped] {eat}(normal);
+   \draw[event] (busy) to [bend right=45] node[midway,above,sloped]{get tired} (sleep);
+   \draw[event] (sleep) to [bend right=45] node[midway,above,sloped]{get hungry} (hungry);
+   \draw[event] (busy) to [bend left=45] node[midway,above,sloped]{get hungry} (hungry);
+  \end{tikzpicture}
+ \end{center}
+ %    \centering
+ %    \LARGE That's all folks!
 \end{frame}
 
 \end{document}
